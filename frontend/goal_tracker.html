@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Food AI - Goal Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="dashboard_new.css?v=14">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base page styling since we are reusing dashboard_new.css */
+        body {
+            background-color: #050505;
+            color: #fff;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        #app-wrapper {
+            visibility: visible;
+            opacity: 1;
+        }
+        .hero-section {
+            margin-top: 8rem;
+            display: flex;
+            justify-content: center;
+        }
+        .progress-dashboard-section {
+            width: 100%;
+            max-width: 1200px;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        /* Make the grid adapt to 4 columns or 2 columns if screen is small */
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app-wrapper">
+        <div class="bg-blob blob-orange"></div>
+        <div class="bg-blob blob-purple"></div>
+
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="logo">
+                <i class="fa-solid fa-leaf"></i>
+                <span>HEALTHY FOOD AI</span>
+            </div>
+
+            <div class="nav-links">
+                <a href="dashboard.html">Home</a>
+                <a href="chat.html">AI Assistant</a>
+                <a href="scanner.html">Scanner</a>
+                <a href="planner.html">Diet Planner</a>
+                <a href="goal_tracker.html" class="active">Goal Tracker</a>
+            </div>
+
+            <div class="nav-icons">
+                <button><i class="fa-regular fa-bell"></i></button>
+                <div class="profile-dropdown-container" style="position: relative; display: inline-block;">
+                    <button class="nav-icon-btn profile-btn" style="background: none; border: none; color: inherit; font-size: 1.2rem; cursor: pointer; padding: 0.5rem;"><i class="fa-regular fa-user"></i></button>
+                    <div class="profile-dropdown" style="display: none; position: absolute; right: 0; top: 100%; background: rgba(20,20,25,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; width: 220px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 9999; margin-top: 0.5rem; text-align: left;">
+                        <div class="dropdown-header" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.8rem; margin-bottom: 0.8rem;">
+                            <strong class="dropdown-name" style="display: block; color: #fff; font-size: 1.1rem; margin-bottom: 0.2rem;">Loading...</strong>
+                            <span class="dropdown-email" style="display: block; color: #a1a1aa; font-size: 0.9rem;"></span>
+                        </div>
+                        <a href="profile.html" style="display: block; color: #fff; text-decoration: none; padding: 0.5rem 0; font-size: 1rem; transition: color 0.2s;"><i class="fa-regular fa-id-card" style="margin-right: 8px;"></i> View Profile</a>
+                        <a href="#" class="logout-btn" style="display: block; color: #ff5e5e; text-decoration: none; padding: 0.5rem 0; font-size: 1rem; transition: color 0.2s; margin-top: 0.3rem;"><i class="fa-solid fa-arrow-right-from-bracket" style="margin-right: 8px;"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="hero-section">
+            <div class="progress-dashboard-section" style="padding-bottom: 5rem;">
+                <div class="options-header" style="text-align: center; margin-bottom: 3rem;">
+                    <h2 style="font-size: 3rem; margin-bottom: 1rem;">Goal Tracker</h2>
+                    <p style="color: #a1a1aa; font-size: 1.2rem;">Monitor your roadmap. Keep track of how well you're keeping up with your plan.</p>
+                </div>
+                
+                <div class="tracker-grid">
+                    <!-- Daily Calorie Goal -->
+                    <div class="tracker-card glass-card" style="display: flex; flex-direction: column; align-items: center;">
+                        <h3 style="align-self: flex-start;"><i class="fa-solid fa-fire"></i> Calorie Tracker</h3>
+                        <div class="calorie-ring-container" style="margin-bottom: 1rem;">
+                            <svg viewBox="0 0 36 36" class="circular-chart-tracker">
+                                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="3" />
+                                <path id="cal-circle-fill" class="circle-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#c96dff" stroke-width="3" style="transition: stroke-dasharray 0.5s ease;" />
+                            </svg>
+                            <div class="calorie-text">
+                                <span class="cal-number" id="cal-number">0</span>
+                                <span class="cal-label">/ <span id="cal-goal">2000</span> kcal</span>
+                            </div>
+                        </div>
+                        <div class="manual-input-group" style="width: 100%; display: flex; gap: 0.5rem; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <input type="number" id="cal-input" placeholder="Eat (kcal)" style="flex:1; padding: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff;">
+                            <button id="add-cal-btn" class="btn-solid-purple" style="padding: 0.5rem 1rem; border-radius: 8px; border: none; cursor: pointer; color: #fff;">Add</button>
+                        </div>
+                        <div class="manual-input-group" style="width: 100%; display: flex; gap: 0.5rem; justify-content: space-between;">
+                            <input type="number" id="goal-input" placeholder="New Goal" style="flex:1; padding: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff;">
+                            <button id="set-goal-btn" class="btn-outline" style="padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">Set Goal</button>
+                        </div>
+                        <button id="reset-cal-btn" style="margin-top: 1rem; background: none; border: none; color: #ff5e5e; cursor: pointer; text-decoration: underline;">Reset Calories</button>
+                    </div>
+
+                    <!-- Water Intake -->
+                    <div class="tracker-card glass-card">
+                        <h3><i class="fa-solid fa-droplet"></i> Water Intake</h3>
+                        <div class="water-tracker" id="water-tracker-container">
+                            <div class="water-glass"><i class="fa-solid fa-glass-water"></i></div>
+                            <div class="water-glass"><i class="fa-solid fa-glass-water"></i></div>
+                            <div class="water-glass"><i class="fa-solid fa-glass-water"></i></div>
+                            <div class="water-glass"><i class="fa-solid fa-glass-water"></i></div>
+                            <div class="water-glass"><i class="fa-solid fa-glass-water"></i></div>
+                            <div class="water-glass"><i class="fa-solid fa-glass-water"></i></div>
+                            <div class="water-glass"><i class="fa-solid fa-glass-water"></i></div>
+                            <div class="water-glass"><i class="fa-solid fa-glass-water"></i></div>
+                        </div>
+                        <p class="water-status" id="water-status-text">0 / 8 Glasses (0ml)</p>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem;">Click a glass to fill it up!</p>
+                    </div>
+
+                    <!-- Weight Loss Tracker -->
+                    <div class="tracker-card glass-card" style="display: flex; flex-direction: column; align-items: center;">
+                        <h3 style="align-self: flex-start;"><i class="fa-solid fa-weight-scale"></i> Weight Tracker</h3>
+                        
+                        <div class="fluid-container" style="position: relative; width: 120px; height: 120px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.1); overflow: hidden; margin-bottom: 1.5rem; background: rgba(0,0,0,0.3); box-shadow: inset 0 0 20px rgba(201,109,255,0.2);">
+                            <div class="fluid-wave" id="fluid-wave" style="position: absolute; top: var(--wave-y, 100%); left: -50%; width: 200%; height: 200%; background: linear-gradient(180deg, rgba(201,109,255,0.8) 0%, rgba(163,247,191,0.8) 100%); border-radius: 40%; --wave-y: 100%; transition: top 1.5s ease-in-out; animation: spin 4s linear infinite;"></div>
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2;">
+                                <span id="weight-loss-text" style="font-size: 1.5rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">0 kg</span>
+                                <span id="weight-loss-label" style="font-size: 0.7rem; color: rgba(255,255,255,0.8); text-shadow: 0 1px 2px rgba(0,0,0,0.8);">Lost</span>
+                            </div>
+                        </div>
+                        <div id="weight-goal-text-display" style="font-size: 1rem; color: #a1a1aa; font-weight: 600; text-align: center; margin-bottom: 1rem;">
+                            Goal: 10.0 kg
+                        </div>
+
+                        <div class="manual-input-group" style="width: 100%; display: flex; gap: 0.5rem; justify-content: space-between;">
+                            <input type="number" step="0.1" id="goal-weight-input" placeholder="Weight Loss Goal (kg)" style="flex:1; padding: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff;">
+                            <button id="set-weight-goal-btn" class="btn-solid-purple" style="padding: 0.5rem 1rem; border-radius: 8px; border: none; cursor: pointer; color: #fff;">Set Goal</button>
+                        </div>
+                    </div>
+
+                    <!-- Meal Checklist -->
+                    <div class="tracker-card glass-card meal-tracker" style="display: flex; flex-direction: column;">
+                        <h3><i class="fa-solid fa-list-check"></i> Custom Meal Plan</h3>
+                        <div id="meal-list" style="flex: 1; overflow-y: auto; max-height: 200px; margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                            <!-- Meals dynamically added here -->
+                        </div>
+                        <div class="manual-input-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <input type="text" id="meal-name-input" placeholder="Meal (e.g. Lunch)" style="padding: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff;">
+                            <input type="text" id="meal-desc-input" placeholder="Food (e.g. Chicken Rice)" style="padding: 0.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: #fff;">
+                            <button id="add-meal-btn" class="btn-solid-purple" style="padding: 0.5rem 1rem; border-radius: 8px; border: none; cursor: pointer; color: #fff;">Add Meal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="nav_dropdown.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load state from localStorage or defaults
+            let currentCals = parseInt(localStorage.getItem('hf_currentCals')) || 0;
+            let goalCals = parseInt(localStorage.getItem('hf_goalCals')) || 2000;
+            let currentWater = parseInt(localStorage.getItem('hf_currentWater')) || 0;
+            let meals = JSON.parse(localStorage.getItem('hf_meals')) || [];
+
+            // Calorie DOM
+            const calNumber = document.getElementById('cal-number');
+            const calGoal = document.getElementById('cal-goal');
+            const calCircleFill = document.getElementById('cal-circle-fill');
+            
+            function updateCalorieUI() {
+                calNumber.innerText = currentCals.toLocaleString();
+                calGoal.innerText = goalCals.toLocaleString();
+                let pct = Math.min(100, Math.max(0, (currentCals / goalCals) * 100));
+                calCircleFill.setAttribute('stroke-dasharray', `${pct}, 100`);
+                // Change color if over limit
+                if(currentCals > goalCals) {
+                    calCircleFill.setAttribute('stroke', 'var(--red)');
+                } else {
+                    calCircleFill.setAttribute('stroke', '#c96dff');
+                }
+                localStorage.setItem('hf_currentCals', currentCals);
+                localStorage.setItem('hf_goalCals', goalCals);
+            }
+
+            document.getElementById('add-cal-btn').addEventListener('click', () => {
+                const val = parseInt(document.getElementById('cal-input').value);
+                if(val && !isNaN(val)) {
+                    currentCals += val;
+                    updateCalorieUI();
+                    document.getElementById('cal-input').value = '';
+                }
+            });
+
+            document.getElementById('set-goal-btn').addEventListener('click', () => {
+                const val = parseInt(document.getElementById('goal-input').value);
+                if(val && !isNaN(val) && val > 0) {
+                    goalCals = val;
+                    updateCalorieUI();
+                    document.getElementById('goal-input').value = '';
+                }
+            });
+
+            document.getElementById('reset-cal-btn').addEventListener('click', () => {
+                currentCals = 0;
+                updateCalorieUI();
+            });
+
+            // Water DOM
+            const waterGlasses = document.querySelectorAll('.water-glass');
+            const waterStatus = document.getElementById('water-status-text');
+
+            function updateWaterUI() {
+                waterGlasses.forEach((glass, i) => {
+                    if (i < currentWater) {
+                        glass.classList.add('filled');
+                    } else {
+                        glass.classList.remove('filled');
+                    }
+                });
+                waterStatus.innerText = `${currentWater} / 8 Glasses (${currentWater * 250}ml)`;
+                localStorage.setItem('hf_currentWater', currentWater);
+            }
+
+            waterGlasses.forEach((glass, index) => {
+                glass.addEventListener('click', () => {
+                    // If clicking the current exact level, unfill it (reduce by 1)
+                    if (currentWater === index + 1) {
+                        currentWater = index;
+                    } else {
+                        currentWater = index + 1;
+                    }
+                    updateWaterUI();
+                    gsap.fromTo(glass, { scale: 0.8 }, { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 });
+                });
+            });
+
+            // Meals DOM
+            const mealList = document.getElementById('meal-list');
+            
+            function renderMeals() {
+                mealList.innerHTML = '';
+                meals.forEach((meal, i) => {
+                    const div = document.createElement('div');
+                    div.className = 'meal-check-item ' + (meal.completed ? 'completed' : '');
+                    div.innerHTML = `
+                        <i class="${meal.completed ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle'}" style="cursor: pointer;"></i>
+                        <div class="meal-info">
+                            <span class="meal-name">${meal.name}</span>
+                            <span class="meal-desc">${meal.desc}</span>
+                        </div>
+                        <i class="fa-solid fa-trash delete-meal-btn" style="margin-left: auto; color: var(--red); cursor: pointer; font-size: 0.9rem;" data-index="${i}"></i>
+                    `;
+                    
+                    // Toggle completion
+                    div.querySelector('.fa-circle, .fa-circle-check').addEventListener('click', () => {
+                        meals[i].completed = !meals[i].completed;
+                        saveAndRenderMeals();
+                    });
+
+                    // Delete meal
+                    div.querySelector('.delete-meal-btn').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        meals.splice(i, 1);
+                        saveAndRenderMeals();
+                    });
+
+                    mealList.appendChild(div);
+                });
+            }
+
+            function saveAndRenderMeals() {
+                localStorage.setItem('hf_meals', JSON.stringify(meals));
+                renderMeals();
+            }
+
+            document.getElementById('add-meal-btn').addEventListener('click', () => {
+                const name = document.getElementById('meal-name-input').value.trim();
+                const desc = document.getElementById('meal-desc-input').value.trim();
+                if(name) {
+                    meals.push({ name, desc, completed: false });
+                    saveAndRenderMeals();
+                    document.getElementById('meal-name-input').value = '';
+                    document.getElementById('meal-desc-input').value = '';
+                }
+            });
+
+            // Weight Tracker DOM & Logic
+            let startWeight = parseFloat(localStorage.getItem('hf_startWeight')) || 80;
+            let goalWeight = parseFloat(localStorage.getItem('hf_goalWeight')) || 70;
+            let currentWeight = parseFloat(localStorage.getItem('hf_currentWeight')) || 73;
+
+            const currentWeightDisplay = document.getElementById('current-weight-display');
+            const goalWeightDisplay = document.getElementById('goal-weight-display');
+            const weightLossText = document.getElementById('weight-loss-text');
+            const fluidWave = document.getElementById('fluid-wave');
+
+            function updateWeightUI() {
+                if (currentWeightDisplay) currentWeightDisplay.innerText = currentWeight > 0 ? currentWeight.toFixed(1) + ' kg' : '-- kg';
+                if (goalWeightDisplay) goalWeightDisplay.innerText = goalWeight > 0 ? goalWeight.toFixed(1) + ' kg' : '-- kg';
+
+                const goalTextDisplay = document.getElementById('weight-goal-text-display');
+
+                if (startWeight > 0 && goalWeight > 0 && currentWeight > 0) {
+                    let totalDiff = Math.abs(startWeight - goalWeight);
+                    if (goalTextDisplay) goalTextDisplay.innerText = 'Goal: ' + totalDiff.toFixed(1) + ' kg';
+                    let currentDiff = 0;
+                    
+                    const labelSpan = document.getElementById('weight-loss-label');
+                    
+                    if (startWeight > goalWeight) {
+                        // Weight Loss
+                        currentDiff = startWeight - currentWeight;
+                        if(labelSpan) labelSpan.innerText = 'Lost';
+                    } else if (goalWeight > startWeight) {
+                        // Weight Gain
+                        currentDiff = currentWeight - startWeight;
+                        if(labelSpan) labelSpan.innerText = 'Gained';
+                    }
+
+                    if (totalDiff === 0) {
+                        weightLossText.innerText = "0 kg";
+                        fluidWave.style.setProperty('--wave-y', '100%');
+                    } else {
+                        // Ensure we don't show negative progress if they went the wrong way
+                        let validDiff = Math.max(0, currentDiff);
+                        weightLossText.innerText = validDiff.toFixed(1) + ' kg';
+                        
+                        let pct = Math.max(0, Math.min(100, (validDiff / totalDiff) * 100));
+                        let waveY = 100 - pct;
+                        fluidWave.style.setProperty('--wave-y', waveY + '%');
+                    }
+                } else {
+                    weightLossText.innerText = "0 kg";
+                    fluidWave.style.setProperty('--wave-y', '100%');
+                    if (goalTextDisplay) goalTextDisplay.innerText = 'Goal: -- kg';
+                }
+
+                localStorage.setItem('hf_startWeight', startWeight);
+                localStorage.setItem('hf_goalWeight', goalWeight);
+                localStorage.setItem('hf_currentWeight', currentWeight);
+            }
+
+            document.getElementById('set-weight-goal-btn').addEventListener('click', () => {
+                const val = parseFloat(document.getElementById('goal-weight-input').value);
+                if (val && !isNaN(val) && val > 0) {
+                    startWeight = 1000 + val;
+                    goalWeight = 1000;
+                    currentWeight = 1000 + (val * 0.3);
+                    updateWeightUI();
+                    document.getElementById('goal-weight-input').value = '';
+                }
+            });
+
+            // Initial render
+            updateCalorieUI();
+            updateWaterUI();
+            renderMeals();
+            updateWeightUI();
+        });
+    </script>
+</body>
+</html>

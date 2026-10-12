@@ -1,0 +1,162 @@
+# ==============================================================================
+# Nutrix AI (.gitignore)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Operating System & Filesystem Artifacts
+# ------------------------------------------------------------------------------
+# macOS AppleDouble and metadata files
+._*
+**/._*
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+
+# Windows thumbnail and desktop files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+desktop.ini
+
+# Linux / general temporary files
+*~
+*.swp
+*.swo
+
+# ------------------------------------------------------------------------------
+# Environment Variables & Secrets
+# ------------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+!.env.example
+
+# ------------------------------------------------------------------------------
+# Python & Bytecode
+# ------------------------------------------------------------------------------
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Testing & Type Checking
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Interactive Python / Jupyter
+.ipynb_checkpoints
+tempCodeRunnerFile.py
+*tempCodeRunnerFile*
+
+# ------------------------------------------------------------------------------
+# Database & Vector Stores
+# ------------------------------------------------------------------------------
+*.db
+*.sqlite
+*.sqlite3
+nutrix_auth.db
+nutrix_rag.db
+nutrix_web.db
+nutrix_rag_vectors.db
+nutrix_web_vectors.db
+chroma_data/
+**/chroma_data/
+fitness_data.json
+
+# ------------------------------------------------------------------------------
+# Log Files & Server Logs
+# ------------------------------------------------------------------------------
+*.log
+logs/
+api_server.log
+backend.log
+llama_server.log
+frontend.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ------------------------------------------------------------------------------
+# Temporary Scratch, Test Runs & OCR Output Dumps
+# ------------------------------------------------------------------------------
+scratch/
+**/scratch/
+ocr_output/
+**/ocr_output/
+ocr_output.txt
+test5_files/
+**/t
+*.tmp
+*.temp
+
+# ------------------------------------------------------------------------------
+# Node.js / Frontend Dependencies
+# ------------------------------------------------------------------------------
+node_modules/
+**/node_modules/
+
+# ------------------------------------------------------------------------------
+# Large Datasets & Raw Dumps (>100MB / non-repo data)
+# ------------------------------------------------------------------------------
+fullcifocoss.csv
+comprehensive_foods_usda-selected-columns.csv
+
+# ------------------------------------------------------------------------------
+# Sample Test Images & Scanned Media in Root
+# ------------------------------------------------------------------------------
+coke_1.jpeg
+coke_1.pdf
+coke_1_grid.jpeg
+coke_1_grid_test.jpeg
+coke_2.jpeg
+test1.png
+test3.png
+test5.webp
+test_2.png
+test_label.jpg
+image.png
+ingredients-soy-milk-egg-wheat-label-food-nutrition-facts-ingredient-*.webp
+
+# ------------------------------------------------------------------------------
+# IDEs & Code Editors
+# ------------------------------------------------------------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace

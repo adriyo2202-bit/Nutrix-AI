@@ -1,0 +1,47 @@
+name,calories,protein_g,carbs_g,fat_g,allergens
+Whole Wheat Roti,85.0,3.0,18.0,0.5,gluten
+Phulka,70.0,2.5,15.0,0.2,gluten
+Brown Rice (1 cup cooked),215.0,5.0,45.0,1.6,
+White Rice (1 cup cooked),205.0,4.2,44.5,0.4,
+Maida Lacha Paratha,290.0,6.0,48.0,8.5,gluten
+Quinoa (1 cup cooked),222.0,8.0,39.0,3.6,
+Oats (1 cup cooked),166.0,6.0,28.0,4.0,
+Barley (1 cup cooked),193.0,3.6,44.0,0.7,gluten
+Paneer Tikka (100g),240.0,18.0,5.0,16.0,lactose
+Palak Paneer (1 bowl),220.0,12.0,8.0,15.0,lactose
+"Curd (1 cup, 150g)",100.0,5.0,7.0,6.0,lactose
+Tofu Stir-fry (100g tofu),180.0,12.0,6.0,11.0,soy
+Soya Chunks Curry (1 bowl),210.0,22.0,16.0,5.0,soy
+Dal Tadka (1 bowl),150.0,8.0,22.0,4.0,
+Moong Dal (1 bowl),140.0,9.0,21.0,3.0,
+Dal Makhani (1 bowl),280.0,10.0,32.0,12.0,lactose
+Rajma Masala (1 bowl),180.0,9.5,28.0,4.0,
+Chana Masala (1 bowl),200.0,10.0,30.0,4.5,
+Moong Dal Cheela,180.0,9.0,26.0,4.0,
+Sprouts Salad (1 bowl),150.0,8.0,24.0,1.0,
+Boiled Eggs (2 pieces),155.0,13.0,1.1,11.0,egg
+Egg Omelette (2 eggs),180.0,14.0,2.0,13.0,egg
+Egg Bhurji (2 eggs),210.0,14.0,4.0,15.0,egg
+Chicken Curry (150g),260.0,26.0,6.0,14.0,
+Chicken Tikka (150g),220.0,30.0,4.0,8.5,
+Fish Curry (120g),180.0,22.0,5.0,8.0,fish
+Grilled Fish Fillet,160.0,24.0,1.0,6.5,fish
+Bhindi Sabji (1 bowl),110.0,2.0,12.0,6.0,
+Lauki Sabji (1 bowl),80.0,1.5,9.0,4.0,
+Bhindi Fry,150.0,2.2,14.0,10.0,
+Methi Matar Malai,240.0,6.0,18.0,16.0,lactose
+Sweet Potato (100g),86.0,1.6,20.0,0.1,
+Vegetable Poha,220.0,4.0,38.0,5.0,
+Oats Upma,210.0,6.0,35.0,4.0,
+Idli (2 pieces),160.0,4.0,35.0,0.5,
+Sambar (1 bowl),70.0,2.0,9.0,3.0,
+Upma,200.0,4.5,36.0,4.0,
+Roasted Makhana (25g),90.0,2.5,18.0,0.5,
+Roasted Chana (40g),140.0,7.0,22.0,2.0,
+Mixed Nuts (15g),95.0,3.0,3.0,8.0,nuts
+Almonds (10g),60.0,2.0,2.0,5.0,nuts
+Walnuts (10g),65.0,1.5,1.4,6.5,nuts
+Masala Chaas (Buttermilk),45.0,2.0,3.0,1.5,lactose
+Mango Pickle,40.0,0.5,4.0,2.5,
+Papad (1 piece),45.0,2.0,8.0,0.5,
+Processed Cheese,320.0,18.0,1.5,26.0,lactose

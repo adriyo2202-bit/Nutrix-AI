@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Food AI - Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard_new.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <div id="app-wrapper" style="opacity: 1;">
+        <!-- Background Gradients -->
+        <div class="bg-blob blob-orange"></div>
+        <div class="bg-blob blob-purple"></div>
+
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="logo">
+                <i class="fa-solid fa-leaf"></i>
+                <span>HEALTHY FOOD AI</span>
+            </div>
+
+            <div class="nav-links">
+                <a href="dashboard.html">Home</a>
+                <a href="chat.html">AI Assistant</a>
+                <a href="scanner.html">Scanner</a>
+                <a href="planner.html">Diet Planner</a>
+                <a href="goal_tracker.html">Goal Tracker</a>
+            </div>
+
+            <div class="nav-icons">
+                <button><i class="fa-regular fa-bell"></i></button>
+                <button class="active"><i class="fa-solid fa-user"></i></button>
+            </div>
+        </nav>
+
+        <main class="profile-container">
+            <div class="profile-header glass-card">
+                <div class="profile-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h1 id="profile-name">Loading...</h1>
+                    <p id="profile-email">Fetching user details...</p>
+                    <span class="member-since" id="profile-date">Member since...</span>
+                </div>
+                <button class="btn-logout" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+            </div>
+
+            <div class="features-section">
+                <h2>Your Features</h2>
+                <div class="feature-grid">
+                    <a href="planner.html" class="feature-card glass-card">
+                        <div class="feature-icon" style="color: #c96dff; background: rgba(201,109,255,0.1);">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Diet Planner</h3>
+                            <p>Generate and view your personalized roadmap for healthy eating.</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right feature-arrow"></i>
+                    </a>
+
+                    <a href="scanner.html" class="feature-card glass-card">
+                        <div class="feature-icon" style="color: #4bacff; background: rgba(75,172,255,0.1);">
+                            <i class="fa-solid fa-barcode"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Ingredient Scanner</h3>
+                            <p>Scan product labels to check for allergens and harmful additives instantly.</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right feature-arrow"></i>
+                    </a>
+
+                    <a href="chat.html" class="feature-card glass-card">
+                        <div class="feature-icon" style="color: #a3f7bf; background: rgba(163,247,191,0.1);">
+                            <i class="fa-solid fa-message"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>AI Assistant</h3>
+                            <p>Ask anything about nutrition, recipes, or healthy lifestyle habits.</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right feature-arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="profile.js"></script>
+    <script src="nav_dropdown.js"></script>
+</body>
+</html>

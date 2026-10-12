@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Food AI - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="dashboard_new.css?v=14">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+    <!-- 1. The Intro Animation Container -->
+    <div id="intro-container">
+        <!-- 3D WebGL Canvas will be injected here -->
+        <div id="webgl-container"></div>
+        <div id="intro-flash"></div>
+    </div>
+
+    <!-- 2. The Main Application UI (Hidden Initially) -->
+    <div id="app-wrapper">
+        <!-- Ambient Mouse Tracking Glow -->
+        <div id="cursor-glow"></div>
+
+        <!-- Floating Decorative Badges to fill space -->
+        <div class="floating-elements">
+            <div class="float-badge b-1"><i class="fa-solid fa-apple-whole"></i> Personalized Diet Plans</div>
+            <div class="float-badge b-2"><i class="fa-solid fa-shield-halved"></i> Ingredient Safety Checks</div>
+            <div class="float-badge b-3"><i class="fa-solid fa-message"></i> Conversational AI Chat</div>
+            <div class="float-badge b-4"><i class="fa-solid fa-cloud"></i> Secure Data Persistence</div>
+        </div>
+        <!-- Massive Background Gradients -->
+        <div class="bg-blob blob-orange"></div>
+        <div class="bg-blob blob-purple"></div>
+
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="logo">
+                <i class="fa-solid fa-leaf"></i>
+                <span>HEALTHY FOOD AI</span>
+            </div>
+
+            <div class="nav-links">
+                <a href="dashboard.html" class="active">Home</a>
+                <a href="chat.html">AI Assistant</a>
+                <a href="scanner.html">Scanner</a>
+                <a href="planner.html">Diet Planner</a>
+                <a href="goal_tracker.html">Goal Tracker</a>
+            </div>
+
+            <div class="nav-icons">
+                <button><i class="fa-regular fa-bell"></i></button>
+                <div class="profile-dropdown-container" style="position: relative; display: inline-block;">
+                    <button class="nav-icon-btn profile-btn" style="background: none; border: none; color: inherit; font-size: 1.2rem; cursor: pointer; padding: 0.5rem;"><i class="fa-regular fa-user"></i></button>
+                    <div class="profile-dropdown" style="display: none; position: absolute; right: 0; top: 100%; background: rgba(20,20,25,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; width: 220px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 9999; margin-top: 0.5rem; text-align: left;">
+                        <div class="dropdown-header" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.8rem; margin-bottom: 0.8rem;">
+                            <strong class="dropdown-name" style="display: block; color: #fff; font-size: 1.1rem; margin-bottom: 0.2rem;">Loading...</strong>
+                            <span class="dropdown-email" style="display: block; color: #a1a1aa; font-size: 0.9rem;"></span>
+                        </div>
+                        <a href="profile.html" style="display: block; color: #fff; text-decoration: none; padding: 0.5rem 0; font-size: 1rem; transition: color 0.2s;"><i class="fa-regular fa-id-card" style="margin-right: 8px;"></i> View Profile</a>
+                        <a href="#" class="logout-btn" style="display: block; color: #ff5e5e; text-decoration: none; padding: 0.5rem 0; font-size: 1rem; transition: color 0.2s; margin-top: 0.3rem;"><i class="fa-solid fa-arrow-right-from-bracket" style="margin-right: 8px;"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Hero Content -->
+        <main class="hero-section">
+            <div class="hero-content">
+                <div class="eyebrow">HEALTHY FOOD AI - PERSONAL HEALTH INTELLIGENCE</div>
+
+                <h1 class="hero-title">Your web,<br>simulated.</h1>
+
+                <p class="hero-desc">
+                    Healthy Food AI turns your prompts, components and design data into simple actions you can actually
+                    follow.
+                </p>
+
+                <!-- Prompt Input Bar -->
+                <form action="chat.html" method="GET" class="prompt-bar">
+                    <div class="prompt-input-wrapper">
+                        <i class="fa-solid fa-wand-magic-sparkles text-purple"></i>
+                        <input type="text" name="q" placeholder="Ask Healthy Food..." required autocomplete="off">
+                    </div>
+
+                    <div class="prompt-actions">
+                        <button type="button" id="mic-btn-dashboard" class="icon-btn" title="Speak"><i class="fa-solid fa-microphone"></i></button>
+                        <button type="button" id="camera-btn-dashboard" class="icon-btn" title="Scan Label"><i class="fa-solid fa-camera"></i></button>
+                        <button type="button" class="ai-mode-btn"><i class="fa-solid fa-sparkles"></i> AI Mode</button>
+                        <button type="submit" class="send-btn"><i class="fa-solid fa-location-arrow"></i> Send</button>
+                    </div>
+                </form>
+
+                <!-- Quick Action Buttons -->
+                <div class="quick-actions">
+                    <button class="btn-solid-purple" onclick="window.location.href='chat.html?q=give%20a%20random%20food%20suggestion'">Generate Plan</button>
+                    <button class="btn-outline">I'm Feeling Creative</button>
+                </div>
+            </div>
+
+            <!-- NEW OPTIONS GRID SECTION -->
+            <div class="options-section">
+                <div class="options-header">
+                    <h2>Start with what matters today.</h2>
+                    <p>Choose an action. Ready to handle its complexity.</p>
+                </div>
+                <div class="options-grid">
+                    <div class="option-card">
+                        <div class="option-image" style="display:flex; justify-content:center; align-items:center; background: rgba(201,109,255,0.05);">
+                            <i class="fa-solid fa-robot" style="font-size: 4rem; color: #c96dff;"></i>
+                        </div>
+                        <div class="option-content">
+                            <h3>Ask AI</h3>
+                            <p>Interact with our intelligent AI to answer any nutrition questions instantly.</p>
+                            <a href="chat.html" class="option-link">Ask Now <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="option-card">
+                        <div class="option-image" style="display:flex; justify-content:center; align-items:center; background: rgba(255,212,163,0.05);">
+                            <i class="fa-solid fa-barcode" style="font-size: 4rem; color: #ffd4a3;"></i>
+                        </div>
+                        <div class="option-content">
+                            <h3>Ingredient Scanner</h3>
+                            <p>Scan product ingredients to detect harmful items and fit your specific dietary needs.</p>
+                            <a href="scanner.html" class="option-link">Scan Ingredient <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="option-card">
+                        <div class="option-image" style="display:flex; justify-content:center; align-items:center; background: rgba(163,247,191,0.05);">
+                            <i class="fa-solid fa-utensils" style="font-size: 4rem; color: #a3f7bf;"></i>
+                        </div>
+                        <div class="option-content">
+                            <h3>Diet Planner</h3>
+                            <p>Build customized, roadmap-style meal plans tailored entirely to your personal goals.</p>
+                            <a href="planner.html" class="option-link">Create Plan <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="dashboard_new.js?v=8"></script>
+    <script src="nav_dropdown.js"></script>
+</body>
+
+</html>

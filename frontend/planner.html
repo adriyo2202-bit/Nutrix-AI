@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Diet Planner - Healthy Food</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="planner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="logo">
+            <i class="fa-solid fa-leaf"></i>
+            <span>HEALTHY FOOD AI</span>
+        </div>
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="chat.html">AI Assistant</a>
+            <a href="scanner.html">Scanner</a>
+            <a href="planner.html" class="active">Diet Planner</a>
+            <a href="goal_tracker.html">Goal Tracker</a>
+        </div>
+    </nav>
+
+    <!-- Background Elements -->
+    <div class="bg-blob blob-purple"></div>
+    <div class="bg-blob blob-green"></div>
+
+    <main class="planner-container">
+
+        <!-- Input Form Section -->
+        <section id="planner-form-section" class="glass-card form-section">
+            <div class="header-titles">
+                <h1>AI Diet Generator</h1>
+                <p>Enter your physiological data and goals. The AI will generate a strict roadmap to get you there.</p>
+            </div>
+
+            <form id="diet-form">
+                <div class="form-grid">
+                    <!-- Basic Stats -->
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-ruler-vertical"></i> Height (cm)</label>
+                        <input type="number" id="height" placeholder="e.g. 175" required>
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-weight-scale"></i> Weight (kg)</label>
+                        <input type="number" id="weight" placeholder="e.g. 70" required>
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-cake-candles"></i> Age</label>
+                        <input type="number" id="age" placeholder="e.g. 25" required>
+                    </div>
+
+                    <!-- Gender Selection -->
+                    <div class="input-group full-width">
+                        <label><i class="fa-solid fa-venus-mars"></i> Gender</label>
+                        <div class="btn-group" id="gender-group">
+                            <button type="button" class="select-btn active" data-val="Male">Male</button>
+                            <button type="button" class="select-btn" data-val="Female">Female</button>
+                        </div>
+                    </div>
+
+                    <!-- Body Goal Selection -->
+                    <div class="input-group full-width">
+                        <label><i class="fa-solid fa-dumbbell"></i> Body Goal</label>
+                        <div class="btn-group" id="goal-group">
+                            <button type="button" class="select-btn active" data-val="Fit">Fit / Toned</button>
+                            <button type="button" class="select-btn" data-val="Muscular">Muscular / Bulk</button>
+                            <button type="button" class="select-btn" data-val="Weight Loss">Weight Loss</button>
+                        </div>
+                    </div>
+
+                    <!-- Diet Type Selection -->
+                    <div class="input-group full-width">
+                        <label><i class="fa-solid fa-bowl-food"></i> Diet Preference</label>
+                        <div class="btn-group" id="diet-group">
+                            <button type="button" class="select-btn active" data-val="Vegetarian">Veg</button>
+                            <button type="button" class="select-btn" data-val="Non-Vegetarian">Non-Veg</button>
+                            <button type="button" class="select-btn" data-val="Vegan">Vegan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="generate-btn glow-button">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Master Plan
+                </button>
+            </form>
+        </section>
+
+        <!-- Loading State -->
+        <section id="loading-section" class="hidden glass-card">
+            <div class="loader-content">
+                <div class="spinner"></div>
+                <h2 id="loading-message">Calculating BMI and Basal Metabolic Rate...</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p id="loading-percent" class="percent-text">0%</p>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="hidden">
+
+            <!-- Top BMI & Goal Row -->
+            <div class="results-top">
+                <div class="bmi-card glass-card">
+                    <h3>Your BMI Status</h3>
+                    <div class="bmi-gauge">
+                        <svg viewBox="0 0 100 50" class="gauge-svg">
+                            <path class="gauge-bg" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#ffffff1a"
+                                stroke-width="8" />
+                            <path class="gauge-fill" id="bmi-path" d="M 10 50 A 40 40 0 0 1 90 50" fill="none"
+                                stroke="url(#gauge-gradient)" stroke-width="8" stroke-dasharray="125"
+                                stroke-dashoffset="125" />
+                            <defs>
+                                <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#4CAF50" />
+                                    <stop offset="50%" stop-color="#FFEB3B" />
+                                    <stop offset="100%" stop-color="#F44336" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="bmi-value" id="bmi-number">22.5</div>
+                    </div>
+                    <p id="bmi-verdict" class="verdict-text">Normal Weight</p>
+                </div>
+
+                <div class="goal-card glass-card">
+                    <h3><i class="fa-solid fa-bullseye"></i> AI Goal Directive</h3>
+                    <p id="goal-alignment" class="directive-text">"You need to consume a high-protein surplus to hit
+                        your muscular goals."</p>
+                </div>
+            </div>
+
+            <!-- Daily Roadmap -->
+            <h2 class="section-title">Your Daily Roadmap</h2>
+            <div class="roadmap-grid">
+                <div class="meal-card glass-card">
+                    <div class="meal-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                    <h4>Breakfast</h4>
+                    <p id="meal-breakfast">Loading...</p>
+                </div>
+                <div class="meal-card glass-card">
+                    <div class="meal-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <h4>Lunch</h4>
+                    <p id="meal-lunch">Loading...</p>
+                </div>
+                <div class="meal-card glass-card">
+                    <div class="meal-icon"><i class="fa-solid fa-cookie-bite"></i></div>
+                    <h4>Snack</h4>
+                    <p id="meal-snack">Loading...</p>
+                </div>
+                <div class="meal-card glass-card">
+                    <div class="meal-icon"><i class="fa-solid fa-bell-concierge"></i></div>
+                    <h4>Dinner</h4>
+                    <p id="meal-dinner">Loading...</p>
+                </div>
+            </div>
+
+            <!-- Rules Grid -->
+            <div class="rules-grid">
+                <div class="rule-card glass-card positive">
+                    <h3><i class="fa-solid fa-check-circle"></i> Mandatory Fuel</h3>
+                    <ul id="mandatory-fuel">
+                    </ul>
+                </div>
+                <div class="rule-card glass-card negative">
+                    <h3><i class="fa-solid fa-ban"></i> Strictly Forbidden</h3>
+                    <ul id="forbidden-fuel">
+                    </ul>
+                </div>
+            </div>
+
+            <button id="reset-btn" class="glow-button outline" style="margin-top: 2rem; width: 100%;">
+                <i class="fa-solid fa-rotate-left"></i> Create New Plan
+            </button>
+        </section>
+
+    </main>
+
+    <script src="planner.js"></script>
+    <script src="nav_dropdown.js"></script>
+</body>
+
+</html>

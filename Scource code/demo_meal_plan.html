@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Daily Diet Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d131a;
+            --card-bg: #141c24;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --primary: #10b981;
+            --primary-glow: rgba(16, 185, 129, 0.15);
+            --secondary: #06b6d4;
+            --border-color: #243242;
+            --accent-orange: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .grid-profile {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .profile-card, .targets-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .profile-card:hover, .targets-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .info-item {
+            margin-bottom: 8px;
+        }
+
+        .info-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 4px;
+            margin-right: 6px;
+        }
+
+        .badge-cond {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: var(--accent-orange);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .badge-none {
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .macro-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .macro-bar-container {
+            background-color: var(--border-color);
+            height: 10px;
+            border-radius: 9999px;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .macro-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+
+        .bar-carb { background-color: var(--secondary); }
+        .bar-prot { background-color: var(--primary); }
+        .bar-fat { background-color: var(--accent-orange); }
+
+        .cal-highlight {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary-glow);
+            margin-bottom: 12px;
+        }
+
+        .weekly-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .day-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .day-header {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .day-summary {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--border-color);
+            margin-bottom: 12px;
+        }
+
+        .meal-section {
+            margin-bottom: 16px;
+        }
+
+        .meal-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .food-item {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            border-left: 2px solid var(--border-color);
+            padding-left: 8px;
+        }
+
+        .food-macros {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Personalized Indian Meal Planner</h1>
+            <p class="subtitle">Tailored weekly nutritional recommendation for a healthier lifestyle</p>
+        </header>
+
+        <section class="grid-profile">
+            <!-- Profile Info -->
+            <div class="profile-card">
+                <h2>User Profile</h2>
+                <div class="profile-info">
+                    <div class="info-item">
+                        <div class="info-label">Age</div>
+                        <div class="info-value">32 years</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Gender</div>
+                        <div class="info-value">Female</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Height</div>
+                        <div class="info-value">165.0 cm</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Weight</div>
+                        <div class="info-value">68.0 kg</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Activity</div>
+                        <div class="info-value">Lightly Active</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Goal</div>
+                        <div class="info-value" style="color: var(--secondary);">Weight Loss</div>
+                    </div>
+                    <div class="info-item" style="grid-column: span 2;">
+                        <div class="info-label">Preferences</div>
+                        <div class="info-value">Vegetarian</div>
+                    </div>
+                    <div class="info-item" style="grid-column: span 2;">
+                        <div class="info-label">Health Conditions</div>
+                        <div><span class="badge badge-cond">Diabetes</span><span class="badge badge-cond">Hypertension</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Target Info -->
+            <div class="targets-card">
+                <h2>Target Nutrition</h2>
+                <div class="info-label">Target Daily Calories</div>
+                <div class="cal-highlight">1411.6 kcal</div>
+                
+                <div class="macro-row">
+                    <div>
+                        <div class="info-label">Carbohydrates</div>
+                        <div class="info-value">141.2 g</div>
+                    </div>
+                    <span style="color: var(--secondary)">40%</span>
+                </div>
+                <div class="macro-bar-container" style="margin-bottom: 12px;">
+                    <div class="macro-bar bar-carb" style="width: 40%"></div>
+                </div>
+
+                <div class="macro-row">
+                    <div>
+                        <div class="info-label">Protein</div>
+                        <div class="info-value">88.2 g</div>
+                    </div>
+                    <span style="color: var(--primary)">25%</span>
+                </div>
+                <div class="macro-bar-container" style="margin-bottom: 12px;">
+                    <div class="macro-bar bar-prot" style="width: 25%"></div>
+                </div>
+
+                <div class="macro-row">
+                    <div>
+                        <div class="info-label">Fats</div>
+                        <div class="info-value">54.9 g</div>
+                    </div>
+                    <span style="color: var(--accent-orange)">35%</span>
+                </div>
+                <div class="macro-bar-container">
+                    <div class="macro-bar bar-fat" style="width: 35%"></div>
+                </div>
+            </div>
+        </section>
+
+        <h2>7-Day Meal Calendar</h2>
+        <section class="weekly-grid">
+            
+        <div class="day-card">
+            <div class="day-header">Monday</div>
+            <div class="day-summary">
+                <strong>1465.0 kcal</strong><br>
+                P: 72.8g | C: 169.0g | F: 50.0g
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Breakfast</div>
+                <div class="food-item"><strong>Moong Dal Cheela</strong> (1.75x of 1 piece (with green chutney))<br><span class="food-macros">315.0 kcal | P: 15.8g | C: 45.5g | F: 7.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Lunch</div>
+                <div class="food-item"><strong>Tofu Stir-fry with Quinoa</strong> (1.50x of 1 bowl (100g tofu + 1 cup quinoa))<br><span class="food-macros">570.0 kcal | P: 27.0g | C: 67.5g | F: 18.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Dinner</div>
+                <div class="food-item"><strong>Soya Chunks Curry with Roti & Salad</strong> (1.00x of 1 bowl soya curry + 2 rotis)<br><span class="food-macros">390.0 kcal | P: 24.0g | C: 50.0g | F: 9.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Snacks</div>
+                <div class="food-item"><strong>Mixed Nuts (Almonds & Walnuts)</strong> (2.00x of 1 handful (15g))<br><span class="food-macros">190.0 kcal | P: 6.0g | C: 6.0g | F: 16.0g</span></div>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">Tuesday</div>
+            <div class="day-summary">
+                <strong>1410.0 kcal</strong><br>
+                P: 58.0g | C: 203.8g | F: 32.0g
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Breakfast</div>
+                <div class="food-item"><strong>Sprouts Salad</strong> (1.50x of 1 bowl (150g))<br><span class="food-macros">225.0 kcal | P: 12.0g | C: 36.0g | F: 1.5g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Lunch</div>
+                <div class="food-item"><strong>Roti with Dal Tadka & Bhindi Sabji</strong> (1.75x of 2 rotis + 1 bowl dal + 1 bowl bhindi)<br><span class="food-macros">735.0 kcal | P: 28.0g | C: 113.8g | F: 17.5g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Dinner</div>
+                <div class="food-item"><strong>Mushroom Matar Masala with Roti</strong> (1.00x of 1 bowl mushroom peas + 2 rotis)<br><span class="food-macros">360.0 kcal | P: 14.0g | C: 48.0g | F: 10.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Snacks</div>
+                <div class="food-item"><strong>Masala Chaas (Buttermilk)</strong> (2.00x of 1 glass (200ml))<br><span class="food-macros">90.0 kcal | P: 4.0g | C: 6.0g | F: 3.0g</span></div>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">Wednesday</div>
+            <div class="day-summary">
+                <strong>1395.0 kcal</strong><br>
+                P: 60.0g | C: 194.5g | F: 34.0g
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Breakfast</div>
+                <div class="food-item"><strong>Oats Upma</strong> (1.50x of 1 plate (150g))<br><span class="food-macros">315.0 kcal | P: 9.0g | C: 52.5g | F: 6.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Lunch</div>
+                <div class="food-item"><strong>Tofu Stir-fry with Quinoa</strong> (2.00x of 1 bowl (100g tofu + 1 cup quinoa))<br><span class="food-macros">760.0 kcal | P: 36.0g | C: 90.0g | F: 24.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Dinner</div>
+                <div class="food-item"><strong>Lauki Sabji with Yellow Dal & Phulka</strong> (0.50x of 1 bowl lauki + 1 bowl dal + 2 phulka)<br><span class="food-macros">160.0 kcal | P: 6.0g | C: 26.0g | F: 3.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Snacks</div>
+                <div class="food-item"><strong>Sprouted Moong Salad</strong> (2.00x of 1/2 cup)<br><span class="food-macros">160.0 kcal | P: 9.0g | C: 26.0g | F: 1.0g</span></div>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">Thursday</div>
+            <div class="day-summary">
+                <strong>1380.0 kcal</strong><br>
+                P: 70.2g | C: 198.2g | F: 29.0g
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Breakfast</div>
+                <div class="food-item"><strong>Moong Dal Cheela</strong> (1.75x of 1 piece (with green chutney))<br><span class="food-macros">315.0 kcal | P: 15.8g | C: 45.5g | F: 7.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Lunch</div>
+                <div class="food-item"><strong>Brown Rice with Rajma Masala & Salad</strong> (0.75x of 1 cup brown rice + 1 bowl rajma)<br><span class="food-macros">337.5 kcal | P: 11.2g | C: 56.2g | F: 6.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Dinner</div>
+                <div class="food-item"><strong>Soya Chunks Curry with Roti & Salad</strong> (1.75x of 1 bowl soya curry + 2 rotis)<br><span class="food-macros">682.5 kcal | P: 42.0g | C: 87.5g | F: 15.8g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Snacks</div>
+                <div class="food-item"><strong>Roasted Makhana (Foxnuts)</strong> (0.50x of 1 bowl (25g))<br><span class="food-macros">45.0 kcal | P: 1.2g | C: 9.0g | F: 0.2g</span></div>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">Friday</div>
+            <div class="day-summary">
+                <strong>1457.5 kcal</strong><br>
+                P: 57.5g | C: 193.5g | F: 44.7g
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Breakfast</div>
+                <div class="food-item"><strong>Sprouts Salad</strong> (1.25x of 1 bowl (150g))<br><span class="food-macros">187.5 kcal | P: 10.0g | C: 30.0g | F: 1.2g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Lunch</div>
+                <div class="food-item"><strong>Roti with Dal Tadka & Bhindi Sabji</strong> (1.50x of 2 rotis + 1 bowl dal + 1 bowl bhindi)<br><span class="food-macros">630.0 kcal | P: 24.0g | C: 97.5g | F: 15.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Dinner</div>
+                <div class="food-item"><strong>Mushroom Matar Masala with Roti</strong> (1.25x of 1 bowl mushroom peas + 2 rotis)<br><span class="food-macros">450.0 kcal | P: 17.5g | C: 60.0g | F: 12.5g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Snacks</div>
+                <div class="food-item"><strong>Mixed Nuts (Almonds & Walnuts)</strong> (2.00x of 1 handful (15g))<br><span class="food-macros">190.0 kcal | P: 6.0g | C: 6.0g | F: 16.0g</span></div>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">Saturday</div>
+            <div class="day-summary">
+                <strong>1377.5 kcal</strong><br>
+                P: 56.5g | C: 183.2g | F: 37.0g
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Breakfast</div>
+                <div class="food-item"><strong>Oats Upma</strong> (1.75x of 1 plate (150g))<br><span class="food-macros">367.5 kcal | P: 10.5g | C: 61.2g | F: 7.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Lunch</div>
+                <div class="food-item"><strong>Tofu Stir-fry with Quinoa</strong> (2.00x of 1 bowl (100g tofu + 1 cup quinoa))<br><span class="food-macros">760.0 kcal | P: 36.0g | C: 90.0g | F: 24.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Dinner</div>
+                <div class="food-item"><strong>Lauki Sabji with Yellow Dal & Phulka</strong> (0.50x of 1 bowl lauki + 1 bowl dal + 2 phulka)<br><span class="food-macros">160.0 kcal | P: 6.0g | C: 26.0g | F: 3.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Snacks</div>
+                <div class="food-item"><strong>Masala Chaas (Buttermilk)</strong> (2.00x of 1 glass (200ml))<br><span class="food-macros">90.0 kcal | P: 4.0g | C: 6.0g | F: 3.0g</span></div>
+            </div>
+        </div>
+        
+        <div class="day-card">
+            <div class="day-header">Sunday</div>
+            <div class="day-summary">
+                <strong>1405.0 kcal</strong><br>
+                P: 72.5g | C: 200.2g | F: 29.8g
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Breakfast</div>
+                <div class="food-item"><strong>Moong Dal Cheela</strong> (1.75x of 1 piece (with green chutney))<br><span class="food-macros">315.0 kcal | P: 15.8g | C: 45.5g | F: 7.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Lunch</div>
+                <div class="food-item"><strong>Brown Rice with Rajma Masala & Salad</strong> (0.75x of 1 cup brown rice + 1 bowl rajma)<br><span class="food-macros">337.5 kcal | P: 11.2g | C: 56.2g | F: 6.0g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Dinner</div>
+                <div class="food-item"><strong>Soya Chunks Curry with Roti & Salad</strong> (1.75x of 1 bowl soya curry + 2 rotis)<br><span class="food-macros">682.5 kcal | P: 42.0g | C: 87.5g | F: 15.8g</span></div>
+            </div>
+            <div class="meal-section">
+                <div class="meal-title">Snacks</div>
+                <div class="food-item"><strong>Roasted Chana</strong> (0.50x of 1/2 cup (40g))<br><span class="food-macros">70.0 kcal | P: 3.5g | C: 11.0g | F: 1.0g</span></div>
+            </div>
+        </div>
+        
+        </section>
+
+        <footer>
+            <p>Daily Diet Planner &copy; 2026. Made with healthy intent.</p>
+        </footer>
+    </div>
+</body>
+</html>

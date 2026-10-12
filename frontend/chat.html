@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Food AI - Chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="chat.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <!-- Ambient Mouse Tracking Glow -->
+    <div id="cursor-glow"></div>
+
+    <!-- Background elements -->
+    <div class="bg-blob blob-orange"></div>
+    <div class="bg-blob blob-purple"></div>
+
+    <div class="chat-container">
+        <!-- Sidebar for Chat History -->
+        <aside class="chat-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+                <button class="new-chat-btn"><i class="fa-solid fa-plus"></i></button>
+            </div>
+
+            <div class="chat-history-list">
+                <h3>AI Assistant Tools</h3>
+                <a href="scanner.html" class="history-item" style="text-decoration: none; color: inherit;">
+                    <i class="fa-solid fa-barcode"></i>
+                    <span>Ingredient Scanner</span>
+                </a>
+                <a href="planner.html" class="history-item" style="text-decoration: none; color: inherit;">
+                    <i class="fa-solid fa-utensils"></i>
+                    <span>Diet Planner</span>
+                </a>
+                <a href="goal_tracker.html" class="history-item" style="text-decoration: none; color: inherit;">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Goal Tracker</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+            <!-- Header -->
+            <header class="chat-header">
+                <div class="ai-profile">
+                    <div class="ai-avatar">
+                        <i class="fa-solid fa-leaf"></i>
+                        <div class="online-indicator"></div>
+                    </div>
+                    <div class="ai-info">
+                        <h2>Healthy Food AI</h2>
+                        <span class="status">Always here for you</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <button class="icon-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                </div>
+            </header>
+
+            <!-- Messages Area -->
+            <div class="chat-messages" id="chat-messages">
+                <!-- Initial AI Greeting -->
+                <div class="message ai-message initial-message">
+                    <div class="msg-avatar"><i class="fa-solid fa-leaf"></i></div>
+                    <div class="msg-content">
+                        Hello! 👋 I'm your personalized Healthy Food AI. I can help you build custom diet plans or scan
+                        ingredients for safety. How can I assist you today?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing Indicator (Hidden by default) -->
+            <div class="typing-indicator" id="typing-indicator">
+                <div class="msg-avatar"><i class="fa-solid fa-leaf"></i></div>
+                <div class="msg-content typing-bubble">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+
+            <!-- Chat Input Area -->
+            <div class="chat-input-area">
+                <form id="chat-form">
+                    <button type="button" class="attach-btn" title="Upload Image or File">
+                        <i class="fa-solid fa-paperclip"></i>
+                    </button>
+
+                    <div class="input-wrapper">
+                        <textarea id="chat-input" placeholder="Message Healthy Food AI..." rows="1"
+                            autofocus></textarea>
+                        <button type="button" class="mic-btn"><i class="fa-solid fa-microphone"></i></button>
+                    </div>
+
+                    <button type="submit" class="send-btn" id="send-btn" disabled>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+                <div class="input-footer">
+                    AI can make mistakes. Please verify important nutritional information.
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="chat.js"></script>
+</body>
+
+</html>

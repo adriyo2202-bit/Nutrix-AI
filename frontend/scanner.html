@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Food AI - Ingredient Scanner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="scanner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-blob blob-orange"></div>
+    <div class="bg-blob blob-purple"></div>
+    <div id="cursor-glow"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-leaf"></i>
+                <span>HEALTHY FOOD AI</span>
+            </div>
+            <nav class="nav-links">
+                <a href="dashboard.html"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="chat.html"><i class="fa-solid fa-message"></i> AI Assistant</a>
+                <a href="scanner.html" class="active"><i class="fa-solid fa-barcode"></i> Scanner</a>
+                <a href="planner.html"><i class="fa-solid fa-utensils"></i> Diet Planner</a>
+                <a href="goal_tracker.html"><i class="fa-solid fa-chart-line"></i> Goal Tracker</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <a href="dashboard.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                <div class="title-area">
+                    <h1>Ingredient Scanner</h1>
+                    <p>Powered by YOLOv8 Vision & Ollama OCR Analysis</p>
+                </div>
+            </header>
+
+            <div class="scanner-layout">
+                <!-- Left Column: Upload & Image Display -->
+                <div class="upload-section glass-panel">
+                    <div id="upload-zone" class="upload-zone">
+                        <input type="file" id="file-input" accept="image/*" hidden>
+                        <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                        <h3>Upload Label Photo</h3>
+                        <p>Drag & drop or click to browse</p>
+                    </div>
+                    <div id="preview-container" class="hidden">
+                        <img id="image-preview" src="" alt="Uploaded Label">
+                        <div class="scan-overlay">
+                            <div class="scan-line"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Results & AI Analysis -->
+                <div class="results-section glass-panel">
+                    <!-- Initial State -->
+                    <div id="empty-state" class="empty-state">
+                        <i class="fa-solid fa-microscope"></i>
+                        <p>Upload a product label to begin AI analysis.</p>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loading-state" class="hidden">
+                        <div class="spinner"></div>
+                        <p class="loading-text">
+                            <span id="loading-message">YOLOv8 & OCR Processing...</span>
+                            <span id="loading-percent" style="font-weight: 800; margin-left: 10px; color: white;">0%</span>
+                        </p>
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                    </div>
+
+                    <!-- Results State -->
+                    <div id="results-data" class="hidden">
+                        <!-- Giant Glowing Score Card -->
+                        <div class="score-card-premium">
+                            <div class="score-ring-container">
+                                <svg viewBox="0 0 36 36" class="circular-chart-premium">
+                                    <defs>
+                                        <linearGradient id="score-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" id="grad-start" stop-color="var(--orange)" />
+                                            <stop offset="100%" id="grad-end" stop-color="var(--red)" />
+                                        </linearGradient>
+                                        <filter id="glow">
+                                            <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                                            <feMerge>
+                                                <feMergeNode in="coloredBlur"/>
+                                                <feMergeNode in="SourceGraphic"/>
+                                            </feMerge>
+                                        </filter>
+                                    </defs>
+                                    <path class="circle-bg-premium" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path class="circle-premium" id="score-circle-path" filter="url(#glow)" stroke="url(#score-gradient)" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                </svg>
+                                <div class="score-number-overlay">
+                                    <span id="score-text" class="giant-score">0</span>
+                                    <span class="score-out-of">/ 100</span>
+                                </div>
+                            </div>
+                            <div class="score-info-premium">
+                                <span class="badge">SAFETY RATING</span>
+                                <h2 id="score-label">Calculating...</h2>
+                                <p id="score-desc">Based on AI analysis of ingredients</p>
+                            </div>
+                        </div>
+
+                        <!-- Summary -->
+                        <div class="summary-box">
+                            <h3><i class="fa-solid fa-wand-magic-sparkles text-purple"></i> Ollama AI Summary</h3>
+                            <p id="ai-summary-text"></p>
+                        </div>
+
+                        <!-- Ingredients Split -->
+                        <div class="ingredients-split">
+                            <div class="ingredient-list safe-list">
+                                <h3><i class="fa-solid fa-check-circle"></i> Safe Ingredients</h3>
+                                <ul id="safe-ul"></ul>
+                            </div>
+                            <div class="ingredient-list harmful-list">
+                                <h3><i class="fa-solid fa-triangle-exclamation"></i> Harmful / Caution</h3>
+                                <ul id="harmful-ul"></ul>
+                            </div>
+                        </div>
+
+                        <!-- Reset / Try Another -->
+                        <div class="action-section">
+                            <button id="reset-btn" class="glow-button">
+                                <i class="fa-solid fa-camera"></i> Scan Another Product
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="scanner.js"></script>
+    <script src="nav_dropdown.js"></script>
+</body>
+</html>

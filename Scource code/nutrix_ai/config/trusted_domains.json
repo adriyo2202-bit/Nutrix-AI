@@ -1,0 +1,32 @@
+[
+  {
+    "domain": "fssai.gov.in",
+    "category": "food_safety",
+    "authority_score": 1.0,
+    "crawl_enabled": true
+  },
+  {
+    "domain": "who.int",
+    "category": "health_organization",
+    "authority_score": 1.0,
+    "crawl_enabled": true
+  },
+  {
+    "domain": "nih.gov",
+    "category": "scientific",
+    "authority_score": 0.95,
+    "crawl_enabled": true
+  },
+  {
+    "domain": "hsph.harvard.edu",
+    "category": "academic",
+    "authority_score": 0.9,
+    "crawl_enabled": true
+  },
+  {
+    "domain": "fda.gov",
+    "category": "government",
+    "authority_score": 0.95,
+    "crawl_enabled": true
+  }
+]
